@@ -26,7 +26,8 @@ Here's the trap. You skip system design to save time, because you do not have it
 ## The Approach
 If you ever get a hold of my engineering notebooks, they are full of sketch block diagrams, state machine transitions and code flowcharts. The handwriting is unreadable most times yes, but I have the mental print of how the flow is going to be. This is where everything is born. I *always* sketch a block diagram of the system, without any meat in it. From first principles, I am able to follow my intended operation of the code or system from the second the system is turned on. 
 
-![My block diagrams examples](./assets/The-Engineering-Habit-That-Saves-Me-Hours-of-Debugging/my-blocks.png)
+![My block diagrams examples]({{"/assets/images/The-Engineering-Habit-That-Saves-Me-Hours-of-Debugging/my-blocks.png" | relative_url}})
+
 
 I allow myself to dump the first raw, unfiltered thoughts of how the system *might* look like. I say might because after the 4th review, a lot has changed. It is always a battle between opening an editor and taking time to properly design. I take astronomical amounts of time to properly and carefully layout the block diagram. 
 
@@ -34,7 +35,8 @@ In addition to defining the system architecture, block diagrams separates respon
 
 Before I discovered that block diagrams exist, I used to jump straight into code. I will testify here that I have been in a position where I had no idea how one module will pass data to the other module, even after writing hundreds of lines of code. Cringe. I found myself stuck in a position where I have written two complete modules, but no way of passing data between them. I had to go back and rewrite huge portions of the code just to create a proper data-flow. Block diagrams will get rid of this type of naivety. They expose and reveal module interfaces between components. The system design will allow you to ask the question: who calls whom? and using which type of API. Which module owns the hardware at a given time? 
 
-![OTA-snippet](./assets/The-Engineering-Habit-That-Saves-Me-Hours-of-Debugging/fota-block.png)
+![OTA-snippet]({{"/assets/images/The-Engineering-Habit-That-Saves-Me-Hours-of-Debugging/fota-block.png" | relative_url}})
+
 
 Debugging becomes a breeze. If I do not remember the dependency relationships, I will start by following my block flow diagram. Then I can understand and remember, who was being called by who, and using what interface. Then I can directly go to that specific file or files and fix the issue. Or update, if it is a feature request. This is because, at least in my experience, a bug is always tied to a behaviour. The system behaves in a particular way, which the user (might be you) does not desire. Now, remember that every module has a responsibility? It is super easy to point a specific type of behaviour to a module. For instance, if my image is saved as a truncated set of bytes, I am pretty sure that the culprit is the image compression  module. I won't open the codde, I will open the system design diagram and check who calls the compression. And move on from there. This way, my debug time is cut in half. Sometimes I do not even have to reproduce the bug.
 
@@ -48,7 +50,7 @@ Opening a block diagram/state machine diagram first? Everyone is happy, even ner
 ## How do I practise
 Let me lend you a tip. Go take your favourite embedded system project on GitHub, you can open the docs, if the developers were kind enough, and draw your own understanding of the system into a block diagram. I prefer to use the code, searching between files and looking for the APIs and function calls manually, you will discover precious knowledge. I promise you. As an example, here is a diagram I drew some time back to better understand the Mongoose Networking Library:
 
-![Mongoose library block diagram](./assets/The-Engineering-Habit-That-Saves-Me-Hours-of-Debugging/mongoose-block.png)
+![Mongoose library block diagram]({{"/assets/images/The-Engineering-Habit-That-Saves-Me-Hours-of-Debugging/mongoose-block.png" | relative_url}})
 
 
 
