@@ -23,7 +23,7 @@ Let's take network connection for instance. Say you are trying to connect to som
 It is clear that the retry interval never changes, remains the same throughout the retry periods. This is the simplest technique to implement. 
 
 ## Why is this not ideal?
-With a fixed retry interval, the MCU repeatedly wakes up and perfoms the same operation, even when the resource is unlikely to become available soon. For instance is the server needs 5 seconds to recover and you retry every 100ms, you have ideally performed 50 unnecessary retries. 
+With a fixed retry interval, the MCU repeatedly wakes up and perfoms the same operation, even when the resource is unlikely to become available soon. For instance if the server needs 5 seconds to recover and you retry every 100ms, you have ideally performed 50 unnecessary retries. 
 
 It suffices to say that most failures are temporary rather than permanent. For instance an SD card finishing a write cycle. Immediately retrying often results in repeated failures because the hardware is not ready yet. 
 
@@ -85,6 +85,6 @@ You can also use the math functions but I have basically used left-shifting to i
 
 ## Conclusion
 
-This can be improved further by far. For example, in systems with mutiple buses(RS485, CANBUS, ) you can add intentional random jitter to the delay time to prevent the buses from ever reaching the maximum collision threshold. 
+This can be improved further by far. For example, in systems with multiple buses(RS485, CANBUS) you can add intentional random jitter to the delay time to prevent the buses from ever reaching the maximum collision threshold. 
 
-Exponential retry is an optional retry logic that can be used to make embedded systems more reliable and robust. For small hobby or simple projects, working with traditional retry for resopurces is okay. But if you want to design robust and reliable system, you can never go wrong with exponential retry.
+Exponential retry is an optional retry logic that can be used to make embedded systems more reliable and robust. For small hobby or simple projects, working with traditional retry for resources is okay. But if you want to design a robust and reliable system, you can never go wrong with exponential retry.
