@@ -22,7 +22,7 @@ Let's take network connection for instance. Say you are trying to connect to som
 
 It is clear that the retry interval never changes, remains the same throughout the retry periods. This is the simplest technique to implement. 
 
-## Why is this not ideal?
+## Why is this not ideal
 With a fixed retry interval, the MCU repeatedly wakes up and perfoms the same operation, even when the resource is unlikely to become available soon. For instance if the server needs 5 seconds to recover and you retry every 100ms, you have ideally performed 50 unnecessary retries. 
 
 It suffices to say that most failures are temporary rather than permanent. For instance an SD card finishing a write cycle. Immediately retrying often results in repeated failures because the hardware is not ready yet. 
