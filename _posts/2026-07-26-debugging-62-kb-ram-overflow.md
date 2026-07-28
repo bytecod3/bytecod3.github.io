@@ -4,7 +4,7 @@ date: 2026-07-26 00:00:00
 categories: [CubeSat]
 ---
 
-# Introduction
+## Introduction
 So I have been writing a camera driver for my amateur cubesat project for like two months now. I know, two months is a long time to write a driver. But given the long hours at work, I get a few minutes of useful cognitive bank at the end of the day, so it takes time to actually lock in after a long day. 
 
 Further, most of the material am working for is new to me. So I have to take time to do deep and thorough research to just understand what I am working on. This means reading other people's code, reading papers, revising embedded architectures etc. I actually designed my payload firmware around an interesting pattern called the *Hardware Proxy Pattern* that I will write about very soon. 
@@ -15,7 +15,7 @@ Anyway, enough with the excuses. Now that I have written a bunch of code to capt
 
 Clearly, am out of memory. Rather my variables cannot fit into the available RAM space. This was dissapointing but at the same time an interesting bug, because now I have to fix it. Let's chase the dopamine hit of fixing bugs.
 
-# Understanding the bug
+## Understanding the bug
 The first thing I do to understanding this bug is to literally read it(obviously). *RAM overflowed by 62288 bytes*. Okay. First this means that we are out of RAM memory. Looking closely at the line above it, it says that *.bss will not fit in region...*.
 
 But why will it not fit? And what the heck is .bss? I already knew what the .bss is, but I will explain it here just for the curious minds: 
@@ -31,7 +31,7 @@ Program sections in most embedded applications are divided into the following pa
 
 These sections can be stored in different memories depending on their use. For instance, *.text* is stored in the flash memory(it is the program anyway). .bss and .data are stored in RAM. You can read more about memory segmentation from this article [Memory Segmentation in embedded](https://chessman7.substack.com/p/understanding-the-bss-segment-in)
 
-# Source of OverFlow
+## Source of OverFlow
 Now that I know that my .bss section is overflowing, I have a clue of what might be causing it. Since the .bss section stores uninitialised static or global variables, there must be a very large uninitialized variable somewhere in my code. This variable is so large that it is in excess of 62KB. 
 
 Now the next logical question to ask is this, what is the available RAM that my STM32f407VGT6 has such that I can afford this overflow. I can get this from the datasheet as shown here: 
@@ -67,7 +67,7 @@ That frame buffer is huge. Now, remember that all uninitialized variables are st
 192 + 62 (KB) = 254 (KB)
 '''
 
-# Correction and Tradeoff
+## Correction and Tradeoff
 There were two solutions to this kind of bug that I could come up with. One, use an STM32 IC that has a larger SRAM avaiable. The hindrance to this is that I have already designed my PCBs and produced them, so this iteration is not going to be possible. The second solution is taking a hit on my image resolution. Since I am using QVGA, if I reduce this resolution to QQVGA(25%), I can save around 75% of SRAM. Here's how:
 
 ```
@@ -87,7 +87,7 @@ Clearly, I have cut the memory usage by 75%, but that is a huge hit on the image
 
 ```
 
-# Next Steps
+## Next Steps
 Thinking ahead, one thing I would improve on this system design is to obviously use an STM32 board with larger RAM footprint. However, I think there is a point of diminishing returns when it comes to balancing the image resolution, RAM and cost. Simply because memory is one of the most expensive resources in computing. So my thinking is I need to get just enough RAM to capture a QVGA image resolution, while keeping the cost of the system as low as possible.
 
 Or I can just use an external RAM chip, but now that introduces increased complexity in terms of high speed routing, memory caching and access etc, issues who's ROIs are not as great anyway.
