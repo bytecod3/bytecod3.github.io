@@ -1,6 +1,6 @@
 ---
 title: "STM32 Memory Map Series 01: Understanding the 4GB address space and GPIO access"
-date: 2026-10-24 00:00:00
+date: 2026-11-09 00:00:00
 categories: [EmbeddedTechnical]
 ---
 
