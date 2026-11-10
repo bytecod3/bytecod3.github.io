@@ -75,6 +75,8 @@ const int calibration_value = 100;
 int device_status = 1;
 int error_count;
 
+
+
 int main(void)
 {
     int counter = 10;
